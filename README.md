@@ -1,4 +1,4 @@
-# Royal Reserve Bank
+# Re-Bank - Fake Real Bank
 
 A full‑stack banking application using Java Spring Boot microservices for the backend and a Next.js (TypeScript + React) frontend.
 
