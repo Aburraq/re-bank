@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    discovery:
+      client:
+        enabled: true
+    gateway:
+      routes:
+        - id: account
+          uri: lb://account-service
+          predicates:
+            - Path=/api/accounts/**
+        - id: transaction
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/transactions/**
+        - id: asset
+          uri: lb://asset-service
+          predicates:
+            - Path=/api/assets/**
+        - id: notification
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9090/.well-known/jwks.json
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator

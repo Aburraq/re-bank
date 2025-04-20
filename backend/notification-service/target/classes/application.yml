@@ -1,0 +1,30 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: notification-service
+  datasource:
+    url: ${NOTIFICATION_SERVICE_DATASOURCE_URL:jdbc:mysql://localhost:3306/notifications}
+    username: ${NOTIFICATION_SERVICE_DATASOURCE_USERNAME:root}
+    password: ${NOTIFICATION_SERVICE_DATASOURCE_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  kafka:
+    bootstrap-servers: ${NOTIFICATION_SERVICE_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${NOTIFICATION_SERVICE_KAFKA_CONSUMER_GROUP_ID:notification-group}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.royalreserve.notificationservice.dto
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator

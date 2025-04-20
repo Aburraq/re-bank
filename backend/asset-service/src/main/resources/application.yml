@@ -1,0 +1,13 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: asset-service
+  datasource:
+    url: ${ASSET_SERVICE_DATASOURCE_URL:jdbc:mysql://localhost:3306/assets}
+    username: ${ASSET_SERVICE_DATASOURCE_USERNAME:root}
+    password: ${ASSET_SERVICE_DATASOURCE_PASSWORD:password}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

@@ -1,0 +1,21 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${CONFIG_SERVER_GIT_URI:https://github.com/complex-bank/config-repo}
+          username: ${CONFIG_SERVER_GIT_USERNAME:}
+          password: ${CONFIG_SERVER_GIT_PASSWORD:}
+          search-paths:
+            - configs
+        default-label: ${CONFIG_SERVER_DEFAULT_LABEL:main}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator

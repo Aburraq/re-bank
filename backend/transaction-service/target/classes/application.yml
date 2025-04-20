@@ -1,0 +1,20 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: transaction-service
+  datasource:
+    url: ${TRANSACTION_SERVICE_DATASOURCE_URL:jdbc:postgresql://localhost:5432/transactions}
+    username: ${TRANSACTION_SERVICE_DATASOURCE_USERNAME:postgres}
+    password: ${TRANSACTION_SERVICE_DATASOURCE_PASSWORD:password}
+  kafka:
+    bootstrap-servers: ${TRANSACTION_SERVICE_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${TRANSACTION_SERVICE_KAFKA_CONSUMER_GROUP_ID:transaction-group}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URI:http://localhost:8761/eureka}
